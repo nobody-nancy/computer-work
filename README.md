@@ -140,6 +140,35 @@
             background: #245538;
         }
 
+        /* 新增音频控件样式 */
+        .audio-player {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .play-button {
+            width: 35px;
+            height: 35px;
+            border: none;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%232c3e50"><path d="M8 5v14l11-7z"/></svg>') no-repeat center;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .play-button.playing {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%232c3e50"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>');
+        }
+
+        .play-button:hover {
+            transform: scale(1.1);
+        }
+
+        audio {
+            display: none; /* 隐藏原生控件 */
+        }
+
         /* 调整名言容器样式 */
         .quote-container {
             min-height: 200px;
@@ -168,6 +197,26 @@
                 grid-template-columns: 1fr;
             }
         }
+        /* 添加背景层样式 */
+            .background-layer {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: -1;
+                background-size: cover;
+                background-position: center;
+                opacity: 0;
+                transition: opacity 1s ease-in-out;
+        }
+
+        /* 调整文字容器背景 */
+            .detail-page {
+            background: rgba(255, 255, 255, 0.85);
+        }
+       
+    
     </style>
 </head>
 <body>
@@ -240,47 +289,65 @@
             movies: [
                 {
                     text: '"希望是好事，也许是人间至善，而美好的事永不消逝。"',
-                    source: "《肖申克的救赎》 - 安迪·杜佛兰"
+                    source: "《肖申克的救赎》 - 安迪·杜佛兰",
+                    audio: "file:///D:/每日一句/项目音频/《肖申克的救赎》.mp3",
+                    image: "file:///D:/每日一句/照片素材/肖申克.jpg"
                 },
                 {
                     text: '"生活就像一盒巧克力，你永远不知道你会得到什么。"',
-                    source: "《阿甘正传》 - 阿甘"
+                    source: "《阿甘正传》 - 阿甘",
+                    audio: "file:///D:/每日一句/项目音频/《阿甘正传》.mp3",
+                    image: "file:///D:/每日一句/照片素材/阿甘2.jpg"
                 },
                 {
                     text: '"曾经有一份真诚的爱情摆在我的面前，我没有珍惜，等到失去的时候才追悔莫及，人世间最痛苦的事情莫过于此。"',
-                    source: "《大话西游》"
+                    source: "《大话西游》",
+                    audio: "file:///D:/每日一句/项目音频/《大话西游》.mp3",
+                    image: "file:///D:/每日一句/照片素材/大话西游2.jpg"
                 },
                 {
                     text: '"你要尽难做的事和应该做的事，往往是同一件事。凡是有意义的事都不会容易，成年人的生活里没有容易二字。全力保护你的梦想。"',
-                    source: "《天气预报员》"
+                    source: "《天气预报员》",
+                    image: "file:///D:/每日一句/照片素材/天气预报员.jpg"
                 },
                 {
                     text: '"不管前方的路有多苦，只要走的方向正确，不管多么崎岖不平，都比站在原地更接近幸福。"',
-                    source: "宫崎骏 《千与千寻》"
+                    source: "宫崎骏 《千与千寻》",
+                    image: "file:///D:/每日一句/照片素材/千与千寻2.jpg"
                 },
                 {
                     text: '"人们喜欢讨论邪恶的东西，你需要自己判断，相信自己的眼睛和耳朵。"',
-                    source: "《海蒂和爷爷》"
+                    source: "《海蒂和爷爷》",
+                    image: "file:///D:/每日一句/照片素材/海蒂和爷爷2.jpg"
                 },
                 {
                     text: '"我们一路奋战，不是为了改变世界，而是为了不让世界改变我们。"',
-                    source: "《熔炉》"
+                    source: "《熔炉》",
+                    audio: "file:///D:/每日一句/项目音频/《熔炉》.mp3",
+                    image: "file:///D:/每日一句/照片素材/熔炉.jpg"
                 },
                 {
                     text: '"没有人愿意沉湎于回忆，只不过美好的都属于过去。"',
-                    source: "《小王子》"
+                    source: "《小王子》",
+                    audio: "file:///D:/每日一句/项目音频/《小王子》.mp3",
+                    image: "file:///D:/每日一句/照片素材/小王子.jpg"
                 },
                 {
                     text: '"幸福，不是长生不老，不是大鱼大肉，不是权倾朝野。幸福是每一个微小的生活愿望达成。当你想吃的时候有得吃，想被爱的时候有人来爱你。"',
-                    source: "《飞屋环游记》"
+                    source: "《飞屋环游记》",
+                    image: "file:///D:/每日一句/照片素材/飞屋环游记.jpg"
                 },
                 {
                     text: '"“那个世界好重 压在我身上。你甚至不知道它在哪里结束 你难道从来不为自己生活在无穷选择里而害怕得快崩溃掉吗？”"',
-                    source: "《海上钢琴师》"
+                    source: "《海上钢琴师》",
+                    audio: "file:///D:/每日一句/项目音频/《海上钢琴师》.mp3",
+                    image: "file:///D:/每日一句/照片素材/海上钢琴师2.jpg"
                 },
                 {
                     text: '"时光总有一天会将你我拆散，可是即便如此，在那个时刻之前，也让我们在一起吧。"',
-                    source: "《萤火之森》"
+                    source: "《萤火之森》",
+                    audio: "file:///D:/每日一句/项目音频/《萤火之森》.mp3",
+                    image: "file:///D:/每日一句/照片素材/萤火之森.jpg"
                 },
                 
 
@@ -289,96 +356,120 @@
             literature: [
                 {
                     text: '"生存还是毁灭，这是个问题。"',
-                    source: "《哈姆雷特》 - 威廉·莎士比亚"
+                    source: "《哈姆雷特》 - 威廉·莎士比亚",
+                    image: "file:///D:/每日一句/照片素材/哈姆雷特.jpg"
+
                 },
                 {
                     text: '"所有幸福的家庭都是相似的，每个不幸的家庭各有各的不幸。"',
-                    source: "《安娜·卡列尼娜》 - 列夫·托尔斯泰"
+                    source: "《安娜·卡列尼娜》 - 列夫·托尔斯泰",
+                    image: "file:///D:/每日一句/照片素材/安娜卡列尼娜.jpg"
                 },
                 {
                     text: '"吹灭读书灯，一身都是月。"',
-                    source: "桂苓"
+                    source: "桂苓",
+                    image: "file:///D:/每日一句/照片素材/吹灭读书灯.jpg"
                 },
                 {
                     text: '"世界上任何书籍都不能带给你好运，但它们能让你悄悄成为你自己。"',
-                    source: "赫尔曼・黑塞"
+                    source: "赫尔曼・黑塞",
+                    image: "file:///D:/每日一句/照片素材/黑塞.jpg"
                 },
                 {
                     text: '"彼时的少年站在成长的尽头，回首过去，一路崎岖早已繁花盛开。"',
-                    source: "八月长安 《你好，旧时光》"
+                    source: "八月长安 《你好，旧时光》",
+                    image: "file:///D:/每日一句/照片素材/你好旧时光.jpg"
                 },
                 {
                     text: '"少年读书如隙中窥月，中年读书如庭中望月，老年读书如台上玩月，皆以阅历之浅深为所得之浅深耳。"',
-                    source: "张潮 《幽梦影》"
+                    source: "张潮 《幽梦影》",
+                    image: "file:///D:/每日一句/照片素材/吹灭读书灯.jpg"
                 },
                 {
                     text: '"所有随风而逝的都属于昨天，所有历经风雨留下来的才是面向未来的。"',
-                    source: "玛格丽特・米切尔 《飘》"
+                    source: "玛格丽特・米切尔 《飘》",
+                    image: "file:///D:/每日一句/照片素材/飘.jpg"
                 },
                 {
                     text: '"可其实人从来没有真正拥有过什么未来，人也没有所谓的余生，余生只是愿景，只是想象，人实实在在拥有的，是已经度过的岁月，还有当下这一瞬间。"',
-                    source: "公子优 《你的距离》"
+                    source: "公子优 《你的距离》",
+                    image: "file:///D:/每日一句/照片素材/你的距离.jpg"
                 },
                 {
                     text: '"一旦抓住了某些蛛丝马迹，一切就变得有迹可循了。"',
-                    source: "《暗格里的秘密》"
+                    source: "《暗格里的秘密》",
+                    image: "file:///D:/每日一句/照片素材/暗格里的秘密.jpg"
                 },
                 {
                     text: '"无法改变其实是不想改变。改变意味着要抛弃、否定“过去的自己”，比起凤凰涅磐的痛苦，维持现状更容易。他们用过去的不幸来解释现在的顿足不前。"',
-                    source: "《被讨厌的勇气》"
+                    source: "《被讨厌的勇气》",
+                    image: "file:///D:/每日一句/照片素材/被讨厌的勇气.jpg"
                 },
                 {
-                    text: '"文学是一字一字的救出自己，书法是一笔一笔的救出自己"',
-                    source: "木心 《云雀叫了一整天》"
+                    text: '"文学是一字一字的救出自己，书法是一笔一笔的救出自己。"',
+                    source: "木心 《云雀叫了一整天》",
+                    image: "file:///D:/每日一句/照片素材/云雀叫了一整天.jpg"
                 }
             ],
             songs: [
                 {
-                    text: '"多少人曾爱慕你年轻时的容颜，可知谁愿承受岁月无情的变迁"',
-                    source: "《一生有你》 - 水木年华"
+                    text: '"多少人曾爱慕你年轻时的容颜，可知谁愿承受岁月无情的变迁。"',
+                    source: "《一生有你》 - 水木年华",
+                    audio: "file:///D:/每日一句/项目音频/《一生有你》_1.mp3",
+                    image: "file:///D:/每日一句/照片素材/水木年华.jpg"
                 },
                 {
                     text: '"爱一朵花不猜它能开多久，放宽了心情，把什么都变美了。"',
                     source: "《在树上唱歌》 - 郭静"
                 },
                 {
-                    text: '"我一脚踏空我就要飞起来了，我向上是迷茫我向下听见你说，这世界是空荡荡，你说一二三打碎了过往消亡，有风吹破了的归途"',
-                    source: "《撒野》"
+                    text: '"我一脚踏空我就要飞起来了，我向上是迷茫我向下听见你说，这世界是空荡荡，你说一二三打碎了过往消亡，有风吹破了的归途。"',
+                    source: "《撒野》",
+                    audio: "file:///D:/每日一句/项目音频/《撒野》.mp3"
                 },
                 {
-                    text: '"当世界忘了我，时间抛弃我，那个时候我，是不是有了崭新的生活"',
-                    source: "《忘了我》"
+                    text: '"当世界忘了我，时间抛弃我，那个时候我，是不是有了崭新的生活。"',
+                    source: "《忘了我》",
+                    audio: "file:///D:/每日一句/项目音频/《忘了我》.mp3"
+
                 },
                 {
                     text: '"努力的往前飞，再痛也无所谓，黑夜过后的光芒有多美。"',
-                    source: "张杰 《我们都一样》"
+                    source: "张杰 《我们都一样》",
+                    audio: "file:///D:/每日一句/项目音频/《我们都一样》.mp3"
                 },
                 {
-                    text: '"七月的风，八月的雨，卑微的我喜欢遥远的你，你还未来我怎敢老去，未来的日子我奉陪到底"',
-                    source: "《遥远的你》"
+                    text: '"七月的风，八月的雨，卑微的我喜欢遥远的你，你还未来我怎敢老去，未来的日子我奉陪到底。"',
+                    source: "《遥远的你》",
+                    audio: "file:///D:/每日一句/项目音频/《遥远的你》.mp3"
                 },
                 {
                     text: '"晚风吹起你鬓间的白发，抚平回忆留下伤疤，你的眼中，明暗交杂，一笑生花。"',
-                    source: "《起风了》"
+                    source: "《起风了》",
+                    audio: "file:///D:/每日一句/项目音频/《起风了》.mp3"
                 },
                 {
-                    text: '"也许很累一身狼狈  也许卑微一生无为  谁生来不都是一样  尽管叫我无名之辈"',
-                    source: "《无名之辈》 "
+                    text: '"也许很累一身狼狈  也许卑微一生无为  谁生来不都是一样  尽管叫我无名之辈。"',
+                    source: "《无名之辈》 ",
+                    audio: "file:///D:/每日一句/项目音频/《无名之辈》.mp3"
                 },
                 {
-                    text: '"回忆是时光里，带着温暖的余悸。最好忘了吧，最坏不过是关上这世界的门。伸出了双手，拥抱当时的我们。。"',
-                    source: "杨炅翰 《最好的我们》"
+                    text: '"回忆是时光里，带着温暖的余悸。最好忘了吧，最坏不过是关上这世界的门。伸出了双手，拥抱当时的我们。"',
+                    source: "杨炅翰 《最好的我们》",
+                    audio: "file:///D:/每日一句/项目音频/《最好的我们》.mp3"
                 },
                 {
                     text: '"开始总是分分钟都妙不可言，谁都以为热情它永不会减。"',
-                    source: "莫文蔚"
+                    source: "莫文蔚",
+                    audio: "file:///D:/每日一句/项目音频/莫文蔚.mp3"
                 },
                 {
-                    text: '"我为你翻山越岭 却无心看风景"',
-                    source: "《爱就一个字》"
+                    text: '"我为你翻山越岭 却无心看风景。"',
+                    source: "《爱就一个字》",
+                    audio: "file:///D:/每日一句/项目音频/《爱就一个字》.mp3"
                 },
                 {
-                    text: '"时间从来不回答，生命从来不喧哗"',
+                    text: '"时间从来不回答，生命从来不喧哗。"',
                     source: "吴青峰"
                 },
                 {
@@ -387,11 +478,13 @@
                 },
                 {
                     text: '"生命是华丽错觉，时间是贼，偷走一切。"',
-                    source: "阿信 《如烟》"
+                    source: "阿信 《如烟》",
+                    audio: "file:///D:/每日一句/项目音频/《如烟》.mp3"
                 },
                 {
-                    text: '"那就祝我们友谊长存，她们说朋友比情人永恒，都怪我太懦弱 不敢开口对你说，我对你的爱 风吹雨落 依然在守候，那就祝我们能做好朋友"',
-                    source: "《友谊长存》"
+                    text: '"那就祝我们友谊长存，她们说朋友比情人永恒，都怪我太懦弱 不敢开口对你说，我对你的爱 风吹雨落 依然在守候，那就祝我们能做好朋友。"',
+                    source: "《友谊长存》",
+                    audio: "file:///D:/每日一句/项目音频/《友谊长存》.mp3"
                 }
             ],
             proverbs: [
@@ -400,23 +493,25 @@
                     source: "《道德经》"
                 },
                 {
-                    text: '"世界上最浪漫的事便是遥远的相似性"',
+                    text: '"世界上最浪漫的事便是遥远的相似性。"',
                     source: "沃兹基"
                 },
                 {
-                    text: '"世事漫随流水，算来一梦浮生"',
+                    text: '"世事漫随流水，算来一梦浮生。"',
                     source: "李煜"
                 },
                 {
                     text: '"千里之行，始于足下。我是行人，更送行人去。愁无据。寒蝉鸣处，回首斜阳暮。"',
-                    source: "赵彦端"
+                    source: "赵彦端",
+                    image: "file:///D:/每日一句/照片素材/赵彦端.jpg"
                 },
                 {
                     text: '"我渴望有人爆裂的爱我至死不渝，明白爱和死一样强大，并永远的站在我身边，橘子，不是唯一的水果你的人生还有别的可能，每个人讲故事的方式都不一样，只是为了提醒我们，每个人眼里的故事都是不一样的。万物倒塌又被重建，而重建者充满欢愉。"',
-                    source: "《橘子不是唯一的水果》"
+                    source: "《橘子不是唯一的水果》",
+                    image: "file:///D:/每日一句/照片素材/橘子不是唯一的水果.jpg"
                 },
                 {
-                    text: '"井蛙不可以语于海者，拘于虚也；夏虫不可以语于冰者，笃于时也；曲士不可以语于道者，束于教也"',
+                    text: '"井蛙不可以语于海者，拘于虚也；夏虫不可以语于冰者，笃于时也；曲士不可以语于道者，束于教也。"',
                     source: "无名氏"
                 },
                 {
@@ -436,7 +531,7 @@
                     source: "安东尼"
                 },
                 {
-                    text: '"人世几回伤往事，山形依旧枕寒流"',
+                    text: '"人世几回伤往事，山形依旧枕寒流。"',
                     source: "无名氏"
                 },
                 {
@@ -460,11 +555,16 @@
                     source: "笔记"
                 },
                 {
-                    text: '"不是所有的错误都可以被原谅，也不是所有的伤痛都可以被抚平，总有时间也无能无力的事：比如爱，比如思念"',
-                    source: "《海边的曼彻斯特》"
+                    text: '"不是所有的错误都可以被原谅，也不是所有的伤痛都可以被抚平，总有时间也无能无力的事：比如爱，比如思念。"',
+                    source: "《海边的曼彻斯特》",
+                    image: "file:///D:/每日一句/照片素材/海边的曼彻斯特.jpg"
                 },
             ]
         };
+        // 创建背景层
+        const bgLayer = document.createElement('div');
+        bgLayer.className = 'background-layer';
+        document.body.appendChild(bgLayer);
 
         // 当前状态记录
         let currentCategory = null;
@@ -504,13 +604,53 @@
             
             currentQuoteIndex = newIndex;
             
-            // 生成HTML
+            // 修改HTML生成部分
             container.innerHTML = `
                 <div class="quote">
+                    ${quotes[currentQuoteIndex].audio ? `
+                        <div class="audio-player">
+                            <button class="play-button"></button>
+                            <audio src="${quotes[currentQuoteIndex].audio}">
+                                Your browser does not support the audio element.
+                            </audio>
+                        </div>
+                    ` : ''}
                     <p>${quotes[currentQuoteIndex].text}</p>
                     <div class="source">${quotes[currentQuoteIndex].source}</div>
                 </div>
             `;
+            // 添加背景图片逻辑
+            const currentQuote = quotes[currentQuoteIndex];
+            if(currentQuote.image) {
+                bgLayer.style.backgroundImage = `url(${currentQuote.image})`;
+                bgLayer.style.opacity = 0.3; // 调整透明度
+                setTimeout(() => {
+                    bgLayer.style.opacity = 0.7; // 平滑过渡
+            }, 50);
+            } else {
+                bgLayer.style.opacity = 0;
+            }
+
+            // 添加播放控制
+            const players = document.querySelectorAll('audio');
+            players.forEach(player => {
+                const button = player.previousElementSibling;
+                player.addEventListener('play', () => {
+                    // 暂停其他音频
+                    players.forEach(p => {
+                        if(p !== player) p.pause();
+                    });
+                    button.classList.add('playing');
+                });
+                
+                player.addEventListener('pause', () => {
+                    button.classList.remove('playing');
+                });
+
+                button.addEventListener('click', () => {
+                    player.paused ? player.play() : player.pause();
+                });
+            });
         }
 
         // 绑定换句按钮事件（事件委托）
@@ -546,6 +686,7 @@
             
             // 显示主页
             document.getElementById('mainPage').style.display = 'grid';
+            bgLayer.style.opacity = 0;
         });
     });
 
@@ -562,6 +703,8 @@
             card.style.transform = 'scale(1)';
         });
     });
+    
+    
 </script>
 </body>
 </html>
